@@ -1899,6 +1899,20 @@ router.post('/teacher-still-teaching', function (req, res) {
   }
 })
 
+router.post('/teacher-route', function (req, res) {
+  let route = req.session.data['route']
 
+  // console.log(req.session.data);
+
+  if (route === 'pgce') {
+    res.redirect('/teacher-qualified-pgce')
+  } else if (route === 'school-direct') {
+    res.redirect('/teacher-qualified-school-direct')
+  } else if (route === 'scitt') {
+    res.redirect('/teacher-qualified-scitt')
+  } else if (route === 'teach-first') {
+    res.redirect('/teacher-qualified-teach-first')
+  }
+})
 
 module.exports = router
