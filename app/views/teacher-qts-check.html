@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Teachers: claim retention payments
+{% endblock %}
+
+{% block beforeContent %}
+  {% include "includes/phase-banner.html" %}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+            <h1 class="govuk-fieldset__heading">
+              When did you qualify as a teacher?
+            </h1>
+          </legend>
+          <div class="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="where-do-you-live-1" name="where-do-you-live" type="radio" value="england">
+              <label class="govuk-label govuk-radios__label" for="where-do-you-live-1">
+                On or after 1 September 2014
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="where-do-you-live-2" name="where-do-you-live" type="radio" value="scotland">
+              <label class="govuk-label govuk-radios__label" for="where-do-you-live-2">
+                Before 1 September 2014
+              </label>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <form action="teacher-enter-location" method="POST" role="form">
+        <div class="govuk-form-group">
+          <input class="govuk-input" id="teacher-schools-setup" name="teacher-schools-setup" type="hidden" value="true">
+          <fieldset class="govuk-fieldset" role="group">
+            <button type="submit" class="govuk-button">Continue</button>
+          </fieldset>
+        </div>
+      </form>
+
+    </div>
+
+  </div>
+
+{% endblock %}
