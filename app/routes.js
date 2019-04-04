@@ -1886,11 +1886,8 @@ router.post(/([z])\/([0-9]*\/?)(check-eligible)/, function (req, res) {
 
 })
 
-
 router.post('/teacher-still-teaching', function (req, res) {
   let stillTeaching = req.session.data['still-teaching']
-
-  // console.log(req.session.data);
 
   if (stillTeaching === 'false') {
     res.redirect('/teacher-ineligible')
@@ -1902,8 +1899,6 @@ router.post('/teacher-still-teaching', function (req, res) {
 router.post('/teacher-route', function (req, res) {
   let route = req.session.data['route']
 
-  // console.log(req.session.data);
-
   if (route === 'pgce') {
     res.redirect('/teacher-qualified-pgce')
   } else if (route === 'school-direct') {
@@ -1912,6 +1907,55 @@ router.post('/teacher-route', function (req, res) {
     res.redirect('/teacher-qualified-scitt')
   } else if (route === 'teach-first') {
     res.redirect('/teacher-qualified-teach-first')
+  }
+})
+
+router.post('/teacher-qualified-pgce', function (req, res) {
+  let subject = req.session.data['subject']
+
+  if (subject === 'physics') {
+    res.redirect('/teacher-enter-location')
+  } else if (subject === 'maths') {
+    res.redirect('/teacher-enter-location')
+  } else {
+    res.redirect('/teacher-ineligible')
+  }
+})
+
+router.post('/teacher-qualified-school-direct', function (req, res) {
+  let subject = req.session.data['subject']
+
+
+  if (subject === 'physics') {
+    res.redirect('/teacher-enter-location')
+  } else if (subject === 'maths') {
+    res.redirect('/teacher-enter-location')
+  } else {
+    res.redirect('/teacher-ineligible')
+  }
+})
+
+router.post('/teacher-qualified-scitt', function (req, res) {
+  let subject = req.session.data['subject']
+
+  if (subject === 'physics') {
+    res.redirect('/teacher-enter-location')
+  } else if (subject === 'maths') {
+    res.redirect('/teacher-enter-location')
+  } else {
+    res.redirect('/teacher-ineligible')
+  }
+})
+
+router.post('/teacher-qualified-teach-first', function (req, res) {
+  let subject = req.session.data['subject']
+
+  if (subject === 'physics') {
+    res.redirect('/teacher-enter-location')
+  } else if (subject === 'maths') {
+    res.redirect('/teacher-enter-location')
+  } else {
+    res.redirect('/teacher-ineligible')
   }
 })
 
