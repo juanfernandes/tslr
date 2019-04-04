@@ -1,11 +1,11 @@
 // global styles for <a> and <p> tags
 $govuk-global-styles: true;
 
-// Import GOV.UK Frontend and any extension styles if extensions have been configured
-@import "lib/extensions/extensions";
+// Import GOV.UK Frontend
+@import "node_modules/govuk-frontend/all";
 
 // Patterns that aren't in Frontend
-@import "patterns/step-by-step-navigation";
+@import "patterns/check-your-answers";
 @import "patterns/task-list";
 @import "patterns/related-items";
 
@@ -13,3 +13,280 @@ $govuk-global-styles: true;
 @import "components/cookie-banner";
 
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
+
+// GDS colours: https://govuk-elements.herokuapp.com/colour/
+
+.govuk-header__container {
+
+  &.govuk-tslr-header {
+
+    background-color: #003a69;
+    border-color: #347ca9;
+
+    .govuk-header__logo { display: none; }
+
+    .govuk-header__content {
+      width: 100%;
+      a {
+        padding-left: 15px; padding-right: 15px;
+        pointer-events: none;
+        cursor: default;
+        text-decoration: none;
+      }
+    }
+
+  }
+
+}
+
+nav.tslr-contents-list {
+
+  border-bottom: 1px solid #cccccc;
+
+  h2,
+  h2.govuk-heading-m {
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 21px;
+  }
+
+  ul.govuk-list,
+  ol.govuk-list {
+    li {
+      margin-bottom: 5px;
+      font-size: 16px;
+      line-height: 21px;
+    }
+  }
+
+}
+
+nav.tslr-pagination {
+
+  margin-top: 20px;
+  border-top: 1px solid #cccccc;
+
+  ul {
+    padding: 0;
+    list-style: none;
+    li {
+      display: block;
+      a {
+        display: block;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        text-decoration: none;
+        span {
+          display: inline-block;
+          &.arrow {
+            display: inline-block;
+            width: 20px;
+            margin-right: 10px;
+          }
+          &.text {
+            display: block;
+            font-size: 19px;
+            font-weight: 700;
+            text-decoration: none;
+          }
+          &.label {
+            display: block;
+            margin-left: 30px;
+            text-decoration: underline;
+          }
+        }
+        &:visited { color: initial; }
+        &:hover { color: rgb(0, 94, 165); }
+      }
+    }
+  }
+
+}
+
+.govuk-tag {
+
+  &.incomplete { background-color: #fdbe53; }
+
+}
+
+.app-task-list {
+
+  ul.app-task-list__items { padding-left: 0; }
+
+  .app-task-list__item {
+    span.date-applied {
+      display: inline-block;
+      margin-left: 10px;
+      color: grey;
+      font-size: 16px;
+      font-style: italic;
+      text-decoration: none;
+    }
+  }
+
+}
+
+.app-check-your-answers {
+
+  &.full-width-titles {
+    display: block;
+
+    .app-check-your-answers__contents {
+      display: inline-block;
+
+      dt {
+        display: inline-block;
+        width: 100%;
+        margin-right: 0;
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+      dd {
+        &.app-check-your-answers__answer {
+          display: inline-block;
+          width: 75%;
+        }
+        &.app-check-your-answers__change {
+          display: inline-block;
+          width: 20%;
+        }
+      }
+    }
+  }
+
+  &.wider-titles {
+    dt {
+      width: 60%;
+    }
+
+    .app-check-your-answers__contents {
+      &.questions_disabled {
+        color: grey;
+        button.button-as-link {
+          color: grey;
+        }
+        dd.app-check-your-answers__answer {
+          &.answer-incomplete {
+            color: grey;
+          }
+        }
+        dd.app-check-your-answers__change {
+          pointer-events: none;
+          cursor: default;
+          .button-as-link { display: none; }
+        }
+      }
+    }
+  }
+
+}
+
+button.button-as-link {
+
+   background: none !important;
+   color: #005ea5;
+   border: none;
+   padding: 0 !important;
+   font: inherit;
+   cursor: pointer;
+   text-decoration: underline;
+
+   &:hover { color: #2b8cc4; }
+
+}
+
+.a-inc,
+.answer-incomplete { color: #b10e1e; }
+
+dl.app-check-your-answers {
+
+  ul.govuk-list { margin-bottom: 0; }
+
+}
+
+/* Launch page */
+
+table {
+
+  th.govuk-table__header {
+
+    &.col-1, &.col-2, &.col-3 { width: 33%; }
+    &.col-3 { width: 34%; }
+
+    .sub-heading {
+      color: #666666;
+      font-size: 16px;
+    }
+
+  }
+
+  &.cols-4 {
+    th.govuk-table__header {
+      &.col-1, &.col-2, &.col-3, &.col-4 { width: 25%; }
+    }
+  }
+
+  &.cols-5 {
+    th.govuk-table__header {
+      &.col-1, &.col-2, &.col-3, &.col-4, &.col-5 { width: 20%; }
+    }
+  }
+
+  dl.release-desc {
+
+    margin: 0;
+    margin-bottom: 10px;
+
+    dt {}
+    dd {
+      margin: 0 0 5px 0;
+      font-size: 14px;
+      color: #333333;
+    }
+
+  }
+
+}
+
+/* Eligibility checker */
+/* Should probably move this to a separate file for better dev separation */
+p {
+
+  &.callout {
+    margin: 2em 0;
+    background-color: #dee0e2;
+    padding: 2em;
+  }
+
+}
+
+/* Awesomplete */
+div.awesomplete {
+  width: 100%;
+
+  > ul {
+    border-radius: 0;
+  }
+
+  ul[role=listbox] {
+    &:before { content: none; }
+    li {
+      padding-top: 8px; padding-bottom: 8px;
+      font-family: "nta", Arial, sans-serif;
+      font-size: 16px;
+      span.school-address {
+        display: block;
+        font-size: 14px;
+        color: #666666;
+      }
+      &:nth-child(even) { background-color: #ececec; }
+      &:hover {
+        background-color: #005ea5;
+        color: white;
+        span.school-address { color: white; }
+      }
+    }
+  }
+
+}
