@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Teachers' Student Loan Reimbursement
+{% endblock %}
+
+{% block beforeContent %}
+
+  {% include "includes/phase-banner.html" %}
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+      <div class="govuk-form-group">
+        <h1 class="govuk-heading-xl">You’re not eligible to claim back student loan repayments</h1>
+        <p class="govuk-body">Based on your answers, you're not eligible to claim back your student loan repayments.</p>
+
+        {% if data['teacher-ineligible-reason'] == "school-location" %}
+        <p class="govuk-body">You can only claim if your school is in an eligible area for this scheme.</p>
+        {% endif %}
+
+        {% if data['teacher-ineligible-reason'] == "school-phase" %}
+        <p class="govuk-body">You can only claim if your school is a state-funded secondary or special school in England.</p>
+        {% endif %}
+
+        {% if data['teacher-ineligible-reason'] == "school-type" %}
+        <p class="govuk-body">You can only claim if your school is a state-funded secondary or special school in England.</p>
+        {% endif %}
+
+        {% if data['teacher-ineligible-reason'] == "still-teaching" %}
+        <p class="govuk-body">You can only claim if you are still employed at a school in the UK.</p>
+        {% endif %}
+
+        {% if data['teacher-ineligible-reason'] == "teacher-subject" %}
+        <p class="govuk-body">Since {{ globals.tax_year.start_date }} you must have taught one of these subjects, or a combination of subjects, for most of your teaching hours:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>biology</li>
+          <li>chemistry</li>
+          <li>physics</li>
+          <li>computer science</li>
+          <li>languages (not including English)</li>
+        </ul>
+        {% endif %}
+
+        {% if data['teacher-ineligible-reason'] == "teacher-loan" %}
+        <p class="govuk-body">You can only claim if student loan payments were taken from your teaching wages while you were at {{ data['teacher-school']['name'] }}.</p>
+        {% endif %}
+
+        <p class="govuk-body">You can still <a href="{{ data['teacher-ineligible-continue-url'] }}">continue with your claim</a> or cancel and return to the <a href="teacher-tslr">gov.uk homepage</a></p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+{% endblock %}

@@ -1,0 +1,208 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Teachers' Student Loan Reimbursement
+{% endblock %}
+
+{% block header %}
+  {% include "includes/cookie-banner.html" %}
+  {# Set serviceName in config.js. #}
+  {{ govukHeader({
+    serviceName: "Check teachers' claims for student loan repayments",
+    containerClasses: "govuk-width-container govuk-tslr-header"
+  }) }}
+{% endblock %}
+
+{% block beforeContent %}
+
+  {% set claim_id = data['claim-id'] | int %}
+  {% set array_ref = data['array-ref'] | int %}
+
+  {% include "includes/phase-banner.html" %}
+  <div class="govuk-breadcrumbs">
+    <ol class="govuk-breadcrumbs__list">
+      <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="admin-claims">All claims: {{ data['admin-claims-data']['school_name'] }}</a></li>
+      <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="admin-claim">{{ data['admin-claims-data']['claims'][array_ref]['full_name'] | title }}</a></li>
+      <li class="govuk-breadcrumbs__list-item" aria-current="page">Confirm teaching eligibility</li>
+    </ol>
+  </div>
+
+{% endblock %}
+
+{% block content %}
+
+  {% set claim_id = data['claim-id'] | int %}
+  {% set array_ref = data['array-ref'] | int %}
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+      {% if (data['admin-error-no-teaching-employed'] or data['admin-error-no-teaching-employed-other'] or data['admin-error-no-teaching-actual'] or data['admin-error-no-teaching-actual-other']) %}
+      <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">There's a problem</h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            {% if (data['admin-error-no-teaching-employed']) %}
+            <li><a href="#admin-teaching-employed-error">{{ data['error-message-employed'] }}</a></li>
+            {% endif %}
+            {% if (data['admin-error-no-teaching-employed-other']) %}
+            <li><a href="#admin-teaching-employed-other-error">{{ data['error-message-employed-other'] }}</a></li>
+            {% endif %}
+            {% if (data['admin-error-no-teaching-actual']) %}
+            <li><a href="#admin-teaching-actual-error">{{ data['error-message-actual'] }}</a></li>
+            {% endif %}
+            {% if (data['admin-error-no-teaching-actual-other']) %}
+            <li><a href="#admin-teaching-actual-other-error">{{ data['error-message-actual-other'] }}</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+
+      <form action="admin-claim" method="POST" role="form">
+        <div class="govuk-form-group {% if (data['admin-error-no-teaching-employed']) %}govuk-form-group--error{% endif %}">
+          <fieldset class="govuk-fieldset" role="group" aria-describedby="tbc">
+
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+              <h1 class="govuk-fieldset__heading">
+                Check subject information
+              </h1>
+            </legend>
+
+            <div class="govuk-form-group">
+              <p class="govuk-body">Was <strong>{{ data['admin-claims-data']['claims'][array_ref]['full_name'] | title }}</strong> employed to teach <strong>{{ data['admin-claims-data']['claims'][array_ref]['teaching']['declared']['employed-other'] or data['admin-claims-data']['claims'][array_ref]['teaching']['declared']['employed'] | subjectLookup }}</strong> at {{ data['admin-claims-data']['school_name'] }} between {{ globals.tax_year.start_date }} and {{ globals.tax_year.end_date }}?</p>
+            </div>
+
+            <div class="govuk-form-group">
+
+              {% if (data['admin-error-no-teaching-employed']) %}
+              <span id="admin-teaching-employed-error" class="govuk-error-message">{{ data['error-message-employed'] }}</span>
+              {% endif %}
+
+              <div class="govuk-radios govuk-radios--conditional" data-module="radios">
+
+                <div class="govuk-radios__item">
+                  {% if data['admin-claims-data']['claims'][array_ref]['teaching']['verified']['employed'] == "yes" %}
+                  <input class="govuk-radios__input" id="admin-employed-teaching-y" name="admin-employed-teaching" type="radio" value="yes" checked>
+                  {% else %}
+                  <input class="govuk-radios__input" id="admin-employed-teaching-y" name="admin-employed-teaching" type="radio" value="yes">
+                  {% endif %}
+                  <label class="govuk-label govuk-radios__label" for="admin-employed-teaching-y">Yes</label>
+                </div>
+
+                <div class="govuk-radios__item">
+                  {% if data['admin-claims-data']['claims'][array_ref]['teaching']['verified']['employed'] == "no" %}
+                  <input class="govuk-radios__input" id="admin-employed-teaching-n" name="admin-employed-teaching" type="radio" value="no" data-aria-controls="conditional-admin-employed-teaching-n" checked>
+                  {% else %}
+                  <input class="govuk-radios__input" id="admin-employed-teaching-n" name="admin-employed-teaching" type="radio" value="no" data-aria-controls="conditional-admin-employed-teaching-n">
+                  {% endif %}
+                  <label class="govuk-label govuk-radios__label" for="admin-eligibility-teaching-n">No</label>
+                </div>
+
+                <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-admin-employed-teaching-n">
+                  <div class="govuk-form-group {% if (data['admin-error-no-teaching-employed-other']) %}govuk-form-group--error{% endif %}">
+
+                    <div class="govuk-form-group">
+                      <label class="govuk-label" for="teaching-subject-employed-other">
+                        What subject or subjects were they employed to teach?
+                      </label>
+                      {% if data['admin-claims-data']['claims'][array_ref]['teaching']['verified']['employed-other'] %}
+                      <input class="govuk-input govuk-!-width-two-thirds" id="teaching-subject-employed-other" name="teaching-subject-employed-other" value="{{data['admin-claims-data']['claims'][array_ref]['teaching']['verified']['employed-other']}}">
+                      {% elif data['teaching-subject-employed-other'] %}
+                      <input class="govuk-input govuk-!-width-two-thirds" id="teaching-subject-employed-other" name="teaching-subject-employed-other" value="{{data['teaching-subject-employed-other']}}">
+                      {% else %}
+                      <input class="govuk-input govuk-!-width-two-thirds" id="teaching-subject-employed-other" name="teaching-subject-employed-other">
+                      {% endif %}
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+              {% if data['admin-claims-data']['claims'][array_ref]['teaching']['declared']['actual'] %}
+
+              <div class="govuk-form-group {% if (data['admin-error-no-teaching-actual']) %}govuk-form-group--error{% endif %}">
+
+                <hr class="govuk-section-break govuk-section-break--m">
+
+                <div class="govuk-form-group">
+                  <p class="govuk-body">Did they actually spend most of their time teaching <strong>{{ data['admin-claims-data']['claims'][array_ref]['teaching']['declared']['actual'] | subjectLookup }}</strong>?</p>
+                </div>
+
+                {% if (data['admin-error-no-teaching-actual']) %}
+                <span id="admin-teaching-actual-error" class="govuk-error-message">{{ data['error-message-actual'] }}</span>
+                {% endif %}
+
+                <div class="govuk-radios govuk-radios--conditional" data-module="radios">
+
+                  <div class="govuk-radios__item">
+                    {% if data['admin-claims-data']['claims'][array_ref]['teaching']['verified']['actual'] == "yes" or data['admin-actual-teaching'] == "yes"%}
+                    <input class="govuk-radios__input" id="admin-actual-teaching-y" name="admin-actual-teaching" type="radio" value="yes" checked>
+                    {% else %}
+                    <input class="govuk-radios__input" id="admin-actual-teaching-y" name="admin-actual-teaching" type="radio" value="yes">
+                    {% endif %}
+                    <label class="govuk-label govuk-radios__label" for="admin-actual-teaching-y">Yes</label>
+                  </div>
+
+                  <div class="govuk-radios__item">
+                    {% if data['admin-claims-data']['claims'][array_ref]['teaching']['verified']['actual'] == "no" or data['admin-actual-teaching'] == "no"%}
+                    <input class="govuk-radios__input" id="admin-actual-teaching-n" name="admin-actual-teaching" type="radio" value="no" data-aria-controls="conditional-admin-eligibility-teaching-actual-n" checked>
+                    {% else %}
+                    <input class="govuk-radios__input" id="admin-actual-teaching-n" name="admin-actual-teaching" type="radio" value="no" data-aria-controls="conditional-admin-eligibility-teaching-actual-n">
+                    {% endif %}
+                    <label class="govuk-label govuk-radios__label" for="admin-actual-teaching-n">No</label>
+                  </div>
+
+                  <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-admin-eligibility-teaching-actual-n">
+                    <div class="govuk-form-group {% if (data['admin-error-no-teaching-other'] or data['admin-error-no-teaching-actual']) %}govuk-form-group--error{% endif %}">
+
+                      <div class="govuk-form-group">
+                        <label class="govuk-label" for="teaching-subject-other">
+                          What subject or subjects did they actually teach?
+                        </label>
+                        {% if data['admin-claims-data']['claims'][array_ref]['teaching']['verified']['actual-other'] %}
+                        <input class="govuk-input govuk-!-width-two-thirds" id="teaching-subject-other" name="teaching-subject-actual-other" value="{{data['admin-claims-data']['claims'][array_ref]['teaching']['verified']['actual-other']}}">
+                        {% elif data['teaching-subject-actual-other'] %}
+                        <input class="govuk-input govuk-!-width-two-thirds" id="teaching-subject-other" name="teaching-subject-actual-other" value="{{data['teaching-subject-actual-other']}}">
+                        {% else %}
+                        <input class="govuk-input govuk-!-width-two-thirds" id="teaching-subject-other" name="teaching-subject-actual-other">
+                        {% endif %}
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+              {% endif %}
+
+            </div>
+
+            <div class="govuk-form-group">
+              <button type="submit" class="govuk-button" name="update-teaching" value="update">Update</button>
+              <p class="govuk-body">
+                <button type="submit" class="button-as-link" name="update-teaching" value="cancel">Skip for now</button>
+              </p>
+            </div>
+
+          </fieldset>
+        </div>
+      </form>
+
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+
+      <p class="govuk-body">
+        <a href="admin-claim-received-email" role="button" draggable="false" class="govuk-button hidden-button">Admin notification email</a>
+      </p>
+
+    </div>
+
+  </div>
+
+{% endblock %}

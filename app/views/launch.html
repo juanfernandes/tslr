@@ -1,0 +1,187 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-xl">TSLR Prototypes</h1>
+    </div>
+    <div class="govuk-grid-column-full">
+      <h2 class="govuk-heading-l">Latest and archived prototypes</h2>
+      <table class="govuk-table cols-5">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th class="govuk-table__header col-1" scope="col">Service Model A<br/>
+              <span class="sub-heading">Initial journey outline</span></th>
+            <th class="govuk-table__header col-2" scope="col">Service Model B<br/>
+              <span class="sub-heading">With HMRC integration</span></th>
+            <th class="govuk-table__header col-3" scope="col">Service Model C<br/>
+              <span class="sub-heading">Non-HMRC alternative</span></th>
+            <th class="govuk-table__header col-4" scope="col">Service Model D<br/>
+              <span class="sub-heading">Standalone approach</span></th>
+            <th class="govuk-table__header col-5" scope="col">Service Model E<br/>
+              <span class="sub-heading">Standalone approach</span></th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell" valign="top">
+              <a href="/a/admin-start-email" class="govuk-link">A Latest</a>
+            </td>
+            <td class="govuk-table__cell" valign="top">
+              <a href="/b/teacher-start-comms" class="govuk-link">B Latest (Teacher)</a><br/>
+              <a href="/b/admin-application-received-email" class="govuk-link">B Latest (Admin)</a>
+            </td>
+            <td class="govuk-table__cell" valign="top">
+              <a href="/c/teacher-start-comms" class="govuk-link">C Latest (Teacher)</a><br/>
+              <a href="/c/admin-application-received-email" class="govuk-link">C Latest (Admin)</a>
+            </td>
+            <td class="govuk-table__cell" valign="top">
+              <a href="/d/teacher-tslr" class="govuk-link">D Latest (Teacher)</a><br/>
+              <a href="/d/admin-claim-received-email" class="govuk-link">D Latest (Admin)</a>
+            </td>
+            <td class="govuk-table__cell" valign="top">
+              <a href="/e/teacher-tslr" class="govuk-link">E Latest (Teacher)</a><br/>
+              <a href="/e/admin-claim-received-email" class="govuk-link">E Latest (Admin)</a>
+            </td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell" valign="top">
+              <dl class="release-desc">
+                <dt><a href="/a/181018/admin-start-email" class="govuk-link">A 181018</a></dt>
+                <dd>Archived version before integrating Verify prototype</dd>
+                <dt><a href="/a/181016/start-page" class="govuk-link">A 181016</a></dt>
+                <dd>Greater GDS compliance and rebuilt prototype usage</dd>
+                <dt><a href="/a/181014/start-page" class="govuk-link">A 181012</a></dt>
+                <dd>Early initial outline of journey</dd>
+              </dl>
+            </td>
+            <td class="govuk-table__cell" valign="top">
+              <dl class="release-desc">
+                <dt><a href="/b/181025/teacher-start-comms" class="govuk-link">B 181025</a></dt>
+                <dd>Implementing design feedback, better GDS compliance, revised consent method, etc.</dd>
+                <dt><a href="/b/181024/teacher-start-comms" class="govuk-link">B 181024</a></dt>
+                <dd>Initial end-to-end release of HMRC version</dd>
+              </dl>
+            </td>
+            <td class="govuk-table__cell" valign="top">
+              <dl class="release-desc">
+                <dt><a href="/c/181106/teacher-start-comms" class="govuk-link">C 181106</a></dt>
+                <dd>Snapshot before new content and wording implemented</dd>
+                <dt><a href="/c/181031/teacher-start-comms" class="govuk-link">C 181031</a></dt>
+                <dd>Initial implementation of school lookup (GIAS) for teachers and employment period for admins</dd>
+              </dl>
+            </td>
+            <td class="govuk-table__cell" valign="top">
+              <dl class="release-desc">
+                <dt><a href="/d/181126/teacher-tslr" class="govuk-link">D 181126</a></dt>
+                <dd>Snapshot for stability before heavy user research week</dd>
+                <dt><a href="/d/181121/teacher-tslr" class="govuk-link">D 181121</a></dt>
+                <dd>Heavily iterated stable version before further content and flow tweaks</dd>
+              </dl>
+            </td>
+            <td class="govuk-table__cell" valign="top">
+              <dl class="release-desc">
+                <dt><a href="/e/190107/teacher-tslr" class="govuk-link">E 190107</a></dt>
+                <dd>Snapshot before final version changes</dd>
+                <dt><a href="/e/181218/teacher-tslr" class="govuk-link">E 181218</a></dt>
+                <dd>Snapshot before ongoing changes e.g. 50%, 11-16, etc</dd>
+                <dt><a href="/e/181211/teacher-tslr" class="govuk-link">E 181211</a></dt>
+                <dd>Snapshot before teacher additions and changes</dd>
+                <dt><a href="/e/181206/teacher-tslr" class="govuk-link">E 181206</a></dt>
+                <dd>Parked version before admin flow overhaul</dd>
+              </dl>
+            </td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell" valign="top">
+              &nbsp;
+            </td>
+            <td class="govuk-table__cell" valign="top">
+              <a href="/public/images/service-models/b_181031a.jpg" target="_blank" title="Click to open in a new tab">
+                <img width="100%" src="/public/images/service-models/b_181031a.jpg" />
+              </a>
+            </td>
+            <td class="govuk-table__cell" valign="top">
+              <a href="/public/images/service-models/c_181031a.jpg" target="_blank" title="Click to open in a new tab">
+                <img width="100%" src="/public/images/service-models/c_181031a.jpg" />
+              </a>
+            </td>
+            <td class="govuk-table__cell" valign="top">
+              <a href="/public/images/service-models/d_181114a.jpg" target="_blank" title="Click to open in a new tab">
+                <img width="100%" src="/public/images/service-models/d_181114a.jpg" />
+              </a>
+            </td>
+            <td class="govuk-table__cell" valign="top">&nbsp;</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell" valign="top">
+              <h3 class="govuk-heading-m">GOV.UK eligibility checker</h3>
+              <p class="govuk-body">
+                <span class="sub-heading">Using the 'check before you start' pattern</span>
+                <a href="/z/guidance" class="govuk-link">Check eligibility and register interest</a>
+              </p>
+            </td>
+            <td class="govuk-table__cell" valign="top" colspan="2">
+              <h4 class="govuk-heading-s">Eligible schools</h4>
+              <ul class="govuk-list">
+                <li>Penistone Grammar School<br/>
+                  <span class="govuk-caption-m">Barnsley [370] &amp; Secondary [4]</span></li>
+                <li>Priestman Middle School<br/>
+                  <span class="govuk-caption-m">Bradford [380] &amp; Middle deemed secondary [5]</span></li>
+                <li>Bluebell Park School<br/>
+                  <span class="govuk-caption-m">Knowsley [340] &amp; Community special school [7]</span></li>
+                <li>Wargrave House School<br/>
+                  <span class="govuk-caption-m">St. Helens [342] &amp; Non-maintained special school [8]</span></li>
+                <li>Portland School and Specialist College<br/>
+                  <span class="govuk-caption-m">Stoke-on-Trent [861] &amp; Foundation special school [12]</span></li>
+                <li>The North End Centre<br/>
+                  <span class="govuk-caption-m">Portsmouth [851] &amp; Pupil referral unit [14]</span></li>
+                <li>Henshaws College<br/>
+                  <span class="govuk-caption-m">North Yorkshire [815] &amp; Special post 16 institution [32]</span></li>
+                <li>Stone Lodge Academy<br/>
+                  <span class="govuk-caption-m">Suffolk [935] &amp; Academy special sponsor led [33]</span></li>
+                <li>Red Kite Academy<br/>
+                  <span class="govuk-caption-m">Northamptonshire [928] &amp; Free schools special [36]</span></li>
+                <li>Phoenix Park Academy<br/>
+                  <span class="govuk-caption-m">North East Lincolnshire [812] &amp; Academy alternative provision sponsor led [43]</span></li>
+                <li>Chatsworth High School and Community College<br/>
+                  <span class="govuk-caption-m">Salford [355] &amp; Academy special converter [44]</span></li>
+              </ul>
+            </td>
+            <td class="govuk-table__cell" valign="top" colspan="2">
+              <h4 class="govuk-heading-s">Ineligible schools</h4>
+              <ul class="govuk-list">
+                <li>Langdon Park Community School<br/>
+                  <span class="govuk-caption-m">Tower Hamlets [211] &amp; Secondary [4]</span></li>
+                <li>Colne Valley High School<br/>
+                  <span class="govuk-caption-m">Kirklees [382] &amp; Secondary [4]</span></li>
+                <li>Pipers Grove Primary School<br/>
+                  <span class="govuk-caption-m">Barnsley [370] &amp; Primary [2]</span></li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="govuk-grid-column-one-half">
+      <h2 class="govuk-heading-l">About</h2>
+      <p class="govuk-body">These prototypes are in constant iteration during the Alpha phase of the project. The <strong>Latest</strong> version should always be stable and should be used in most scenarios, though regular date-versioned snapshots are archived for progress tracking and retrospective comparison.</p>
+    </div>
+    <div class="govuk-grid-column-one-half">
+      <h2 class="govuk-heading-l">Feedback</h2>
+      <p class="govuk-body">Any or all feedback is welcome. Raising questions or suggesting changes is the point of the prototypes!</p>
+      <ul class="govuk-list">
+        <li><a class="govuk-link" href="https://trello.com/c/5QOC8IOd/91-design-prototyping">General bugs/feedback (on Trello)</a></li>
+        <li><a class="govuk-link" href="https://trello.com/c/a7bLyrqg/98-gds-design-system-review">GDS Design feedback (on Trello)</a></li>
+        <li><a class="govuk-link" href="mailto:ben@hippodigital.co.uk?subject=Feedback about prototype">Email feedback (to Ben)</a></li>
+      </ul>
+    </div>
+  </div>
+
+{% endblock %}

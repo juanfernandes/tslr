@@ -1,0 +1,154 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  Teachers' Student Loan Reimbursement
+{% endblock %}
+
+{% block beforeContent %}
+  {% include "includes/phase-banner.html" %}
+{% endblock %}
+
+{% block content %}
+
+  {% set full_name = data.applicant.full_name or globals.smd.teacher.full_name %}
+
+  {% set details_complete = true %}
+
+  {% if not data['teacher-loan-amount'] %}
+  {{ "data.teacher-loan-amount is incomplete" | log }}
+  {% set details_complete = false %}
+  {% endif %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">Check your answers</h1>
+
+      <form action="teacher-check-send" method="POST" role="form">
+        <div class="govuk-form-group">
+
+          <input id="teacher-check-send" name="teacher-check-send" type="hidden" value="true">
+
+          <!-- use additional modifier class to change column widths for multiple groups of questions and answers: -->
+          <!--   * `app-check-your-answers--short` for short questions -->
+          <!--   * `app-check-your-answers__questions-long` for long questions -->
+          <!--   * none for single group of q&a -->
+          <dl class="app-check-your-answers app-check-your-answers--short">
+
+            <div class="app-check-your-answers__contents">
+              <dt class="app-check-your-answers__question">School</dt>
+              <dd class="app-check-your-answers__answer">
+                {{ data['teacher-school']['name'] }}
+              </dd>
+              <dd class="app-check-your-answers__change">
+                <button type="submit" class="button-as-link" value="location" name="teacher-check-send-edit" formaction="teacher-enter-location">Change<span class="govuk-visually-hidden"> school</span></button>
+              </dd>
+            </div>
+
+            <div class="app-check-your-answers__contents">
+              <dt class="app-check-your-answers__question">Still employed to teach in the UK</dt>
+              <dd class="app-check-your-answers__answer">
+                {% if data['teacher-still-teaching'] == "elsewhere" and data['teacher-still-teaching-school-name'] %}
+                Yes, but now at {{ data['teacher-still-teaching-school-name'] }}
+                {% elif data['teacher-still-teaching'] == "yes" %}
+                Yes, still at {{ data['teacher-school']['name'] }}
+                {% else %}
+                No
+                {% endif %}
+              </dd>
+              <dd class="app-check-your-answers__change">
+                <button type="submit" class="button-as-link" value="still-teaching" name="teacher-check-send-edit" formaction="teacher-still-teaching">Change<span class="govuk-visually-hidden"> whether still teaching</span></button>
+              </dd>
+            </div>
+
+            <div class="app-check-your-answers__contents">
+              <dt class="app-check-your-answers__question">Subject employed to teach</dt>
+              <dd class="app-check-your-answers__answer">
+                {{ data['teacher-subject-employed-nice'] | title }}{% if data['teacher-subject-employed-other'] %}:<br/>{{ data['teacher-subject-employed-other'] }}{% endif %}
+              </dd>
+              <dd class="app-check-your-answers__change">
+                <button type="submit" class="button-as-link" value="subject" name="teacher-check-send-edit" formaction="teacher-enter-subject">Change<span class="govuk-visually-hidden"> subject employed to teach</span></button>
+              </dd>
+            </div>
+
+            {% if data['teacher-subject-employed'] == 'other' %}
+            <div class="app-check-your-answers__contents">
+              <dt class="app-check-your-answers__question">Subject mostly taught</dt>
+              <dd class="app-check-your-answers__answer">
+                {{ data['teacher-subject-actual-nice'] | title }}{% if data['teacher-subject-actual-other'] %}:<br/>{{ data['teacher-subject-actual-other'] }}{% endif %}
+              </dd>
+              <dd class="app-check-your-answers__change">
+                <button type="submit" class="button-as-link" value="subject" name="teacher-check-send-edit" formaction="teacher-enter-subject">Change<span class="govuk-visually-hidden"> subject actually taught</span></button>
+              </dd>
+            </div>
+            {% endif %}
+
+            <div class="app-check-your-answers__contents">
+              <dt class="app-check-your-answers__question">Student loan amount repaid</dt>
+              {% if data['teacher-loan-amount'] %}
+              <dd class="app-check-your-answers__answer">£{{ data['teacher-loan-amount'] }}</dd>
+              {% else %}
+              <dd class="app-check-your-answers__answer answer-incomplete">Incomplete</dd>
+              {% endif %}
+              <dd class="app-check-your-answers__change">
+                <button type="submit" class="button-as-link" formaction="teacher-enter-repayment-amount">Change<span class="govuk-visually-hidden"> student loan amount</span></button>
+              </dd>
+            </div>
+
+            <div class="app-check-your-answers__contents">
+              <dt class="app-check-your-answers__question">How we'll contact you</dt>
+              {% if data['teacher-contact-method'] == "email" %}
+              <dd class="app-check-your-answers__answer">By email:<br/>
+                {% if not teacher_email %}
+                <span class="answer-incomplete">
+                {% endif %}
+                {{ data['teacher-email-address'] or "Incomplete" }}
+                {% if not teacher_email %}
+                </span>
+                {% endif %}
+              </dd>
+              {% elseif data['teacher-contact-method'] == "mobile" %}
+              <dd class="app-check-your-answers__answer">By text message:<br/>
+                {% if not teacher_mobile %}
+                <span class="answer-incomplete">
+                {% endif %}
+                {{ data['teacher-mobile-number'] or "Incomplete" }}
+                {% if not teacher_mobile %}
+                </span>
+                {% endif %}
+              </dd>
+              {% else %}
+              <dd class="app-check-your-answers__answer answer-incomplete">Incomplete</dd>
+              {% endif %}
+              <dd class="app-check-your-answers__change">
+                <button type="submit" class="button-as-link" formaction="teacher-contact-method">Change<span class="govuk-visually-hidden"> contact method</span></button>
+              </dd>
+            </div>
+
+          </dl>
+
+        </div>
+
+      </form>
+
+      <h2 class="govuk-heading-m">Confirm your claim</h2>
+      <p>By submitting this claim you are confirming that:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>the information you've given is complete and correct as far as you know</li>
+        <li>you'll pay back any money you've been overpaid if you're asked to</li>
+      </ul>
+      <form action="teacher-enter-location-confirm" method="POST" role="form">
+        <div class="govuk-form-group {% if (data['teacher-error-no-school']) %}govuk-form-group--error{% endif %}">
+          <fieldset class="govuk-fieldset" role="group" aria-describedby="bank-hint">
+          {% if details_complete %}
+            <button type="submit" class="govuk-button" formaction="teacher-confirmation">Confirm and send</button>
+          {% else %}
+            <button type="submit" class="govuk-button disabled-button">Confirm and send</button>
+          {% endif %}
+          </fieldset>
+        </div>
+      </form>
+
+    </div>
+  </div>
+{% endblock %}
