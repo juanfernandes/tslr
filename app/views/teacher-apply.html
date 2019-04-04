@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block pageTitle %}
-  Teachers' Student Loan Reimbursement
+  Teachers: claim retention payments
 {% endblock %}
 
 {% block beforeContent %}
@@ -14,7 +14,7 @@
 
     <div class="govuk-grid-column-full">
 
-      <h1 class="govuk-heading-xl">Teachers: claim back student loan repayments</h1>
+      <h1 class="govuk-heading-xl">Make a claim</h1>
 
     </div>
 
@@ -23,8 +23,8 @@
       <nav class="tslr-contents-list" role="navigation">
         <h2 class="govuk-heading-m">Contents</h2>
         <ul class="govuk-list">
-          <li>&mdash; <a class="govuk-link" href="teacher-tslr">About this scheme</a></li>
-          <li>&mdash; <a class="govuk-link" href="teacher-tslr-eligibility">Eligibility</a></li>
+          <li>&mdash; <a class="govuk-link" href="index">About this scheme</a></li>
+          <li>&mdash; <a class="govuk-link" href="teacher-eligibility">Eligibility</a></li>
           <li>&mdash; Make a claim</li>
         </ul>
       </nav>
@@ -33,25 +33,17 @@
 
     <div class="govuk-grid-column-two-thirds col-top-padding">
 
-      <h2 class="govuk-heading-l">Make a claim</h2>
+      <h2 class="govuk-heading-m">Before you start</h2>
+      <p class="govuk-body">You will need:</p>
 
-      <h3 class="govuk-heading-m">Before you start</h3>
-    <p class="govuk-body">You will need:</p>
       <ul class="govuk-list govuk-list--bullet">
-        <li>the total amount of student loan repayments made through your school wages in the last tax year – you can find this on your payslips</li>
-        <li>sign in details for ‘Verify’, the government’s secure way of proving who you are</li>
+        <li>your teacher reference number – you can get this from your school, the certificate you got when you qualified as a teacher or from the <a href="https://www.gov.uk/guidance/individual-teacher-records-information-for-teachers#contact">teacher qualifications helpdesk</a></li>
+        <li>sign in details for ‘Verify’ (the government’s secure way of proving who you are) – if you do not have a Verify account, you will need your passport or photocard driving licence to sign up</li>
+        <li>your bank account details</li>
       </ul>
-    <p class="govuk-body">If you do not have a Verify account, you will also need:</p>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>your passport or photocard driving licence</li>
-          <li>your teacher reference number – you can get this from your school, the certificate you got when you qualified as a teacher or from the <a href="https://www.gov.uk/guidance/individual-teacher-records-information-for-teachers#contact">teacher qualifications helpdesk</a></li>
-          <li>your National Insurance number</li>
-        </ul>
-  <h3 class="govuk-heading-m">You've worked at more than one school</h3>
-      <p class="govuk-body">If you've worked at more than one school between {{globals.tax_year.start_date}} and {{globals.tax_year.end_date}}, you can claim for:
-        <ul class="govuk-list govuk-list--bullet">
-          <li>each school separately use this online service</li>
-          <li>all schools using one form, if you <a href="#">claim by post</a></p>
+
+      <h3 class="govuk-heading-m">You've worked at more than one school</h3>
+      <p class="govuk-body">If you've worked at more than one school since 1 September 2017, apply for each school separately.</p>
 
       <form action="teacher-consent" method="POST" role="form">
         <div class="govuk-form-group">
@@ -60,8 +52,7 @@
           </fieldset>
         </div>
       </form>
-      <h3 class="govuk-heading-m">Other ways to claim</h3>
-      <p class="govuk-body">If you cannot claim online, or you want to claim for multiple schools, you can <a href="#">claim by post</a>. The address to send your claim to is at the end of the form.</p>
+
       <nav class="tslr-pagination" role="navigation">
         <ul>
           <li class="prev">
